@@ -7,7 +7,6 @@ using Android.Widget;
 using Android.OS;
 using Android.Locations;
 using XamarinWeatherApp.Model;
-using Java.Lang;
 using System.Linq;
 using Newtonsoft.Json;
 
