@@ -136,7 +136,8 @@ namespace XamarinWeatherApp
                 activity.txtLastUpdate.Text = $"Last Update: {DateTime.Now.ToString("dd MMMM yyyy HH:mm")}";
                 activity.txtDescription.Text = $"{openWeatherMap.weather[0].description}";
                 activity.txtHumidaty.Text = $"Humidity: {openWeatherMap.main.humidity} %";
-                activity.txtTime.Text = $"{Common.Common.UnixTimeStampToDateTime(openWeatherMap.name)}";
+                activity.txtTime.Text = $"{Common.Common.UnixTimeStampToDateTime(openWeatherMap.sys.sunrise)}/{Common.Common.UnixTimeStampToDateTime(openWeatherMap.sys.sunrise)}";
+
 
 
 
