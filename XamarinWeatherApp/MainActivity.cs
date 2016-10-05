@@ -9,6 +9,7 @@ using Android.Locations;
 using XamarinWeatherApp.Model;
 using System.Linq;
 using Newtonsoft.Json;
+using Square.Picasso;
 
 namespace XamarinWeatherApp
 {
@@ -137,9 +138,14 @@ namespace XamarinWeatherApp
                 activity.txtHumidaty.Text = $"Humidity: {openWeatherMap.main.humidity} %";
                 activity.txtTime.Text = $"{Common.Common.UnixTimeStampToDateTime(openWeatherMap.sys.sunrise)}/{Common.Common.UnixTimeStampToDateTime(openWeatherMap.sys.sunrise)}";
 
+                activity.txtCelsius.Text = $"{openWeatherMap.main.temp} °C";
 
-
-
+                if (!String.IsNullOrEmpty(openWeatherMap.weather[0].icon))
+                {
+                    Picasso.With(activity.ApplicationContext)
+                        .Load(Common.Common.GetImage(openWeatherMap.weather[0].icon))
+                        .Into(activity.imgView);
+                }
             }
         }
     }

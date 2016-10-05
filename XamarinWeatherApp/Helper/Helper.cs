@@ -27,7 +27,7 @@ namespace XamarinWeatherApp.Helper
                 URL url = new URL(urlString);
                 using (var urlConnection = (HttpURLConnection) url.OpenConnection())
                 {
-                    BufferedReader r = new BufferedReader(new InputStream(urlConnection.InputStream));
+                    BufferedReader r = new BufferedReader(new InputStreamReader(urlConnection.InputStream));
                     StringBuilder sb = new StringBuilder();
                     String line;
                     while ((line = r.ReadLine()) != null)
