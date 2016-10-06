@@ -13,6 +13,7 @@ using Square.Picasso;
 
 namespace XamarinWeatherApp
 {
+    // [Activity(Label = "XamarinWeatherApp", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/Theme.AppCompat.Light.NoActionBar")]
     [Activity(Label = "XamarinWeatherApp", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity, ILocationListener
     {
@@ -39,6 +40,15 @@ namespace XamarinWeatherApp
            // Button button = FindViewById<Button>(Resource.Id.MyButton);
 
            // button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
+
+
+            locationManager = (LocationManager) GetSystemService(Context.LocationService);
+            provider = locationManager.GetBestProvider(new Criteria(), false);
+
+            Location location = locationManager.GetLastKnownLocation(provider);
+            if (location == null)
+                System.Diagnostics.Debug.WriteLine("No location");
+
         }
 
         protected override void OnResume()
@@ -59,6 +69,8 @@ namespace XamarinWeatherApp
         {
             lat = Math.Round(location.Latitude, 4);
             lng = Math.Round(location.Longitude, 4);
+
+            new GetWeather(this, openWeatherMap).Execute(Common.Common.APIRequest(lat.ToString(), lng.ToString()));
         }
 
         public void OnProviderDisabled(string provider)
@@ -136,7 +148,7 @@ namespace XamarinWeatherApp
                 activity.txtLastUpdate.Text = $"Last Update: {DateTime.Now.ToString("dd MMMM yyyy HH:mm")}";
                 activity.txtDescription.Text = $"{openWeatherMap.weather[0].description}";
                 activity.txtHumidaty.Text = $"Humidity: {openWeatherMap.main.humidity} %";
-                activity.txtTime.Text = $"{Common.Common.UnixTimeStampToDateTime(openWeatherMap.sys.sunrise)}/{Common.Common.UnixTimeStampToDateTime(openWeatherMap.sys.sunrise)}";
+                activity.txtTime.Text = $"{Common.Common.UnixTimeStampToDateTime(openWeatherMap.sys.sunrise).ToString("HH:mm")}/{Common.Common.UnixTimeStampToDateTime(openWeatherMap.sys.sunrise).ToString("HH:mm")}";
 
                 activity.txtCelsius.Text = $"{openWeatherMap.main.temp} °C";
 
